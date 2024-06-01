@@ -9,8 +9,8 @@ db = SQLAlchemy()
 def create_app():
     app = Flask(__name__)
 
-    app.config['SECRET_KEY'] = 'secret-key-do-not-reveal'
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///photos.db'
+    app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'dev')
+    app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DB_URI")
     CWD = Path(os.path.dirname(__file__))
     app.config['UPLOAD_DIR'] = CWD / "uploads"
 
