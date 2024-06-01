@@ -1,6 +1,7 @@
 import pytest
 from myapp import create_app, db
 from myapp.models import User
+import os
 
 
 # setting up test client
