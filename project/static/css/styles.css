@@ -378,15 +378,15 @@ a.underline:hover:after {
 }
 
 .content-heading-container {
-	#display: flex;
+	display: flex;
 	flex-direction: row;
-	#align-items: center;
+	align-items: center;
 	justify-content: space-around;
 	flex-wrap: wrap;
 	gap: 0.5em;
 	width: 100%;
-	#font-size: 2em;
-	#padding: 0.2em;
+	font-size: 2em;
+	padding: 0.2em;
 }
 
 .profile-container {
