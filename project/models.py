@@ -30,8 +30,10 @@ class User(db.Model):
         db.String(50), nullable=False, default="user"
     )  # roles: user, admin
 
+    # set password is hashed to ensure security and prevent data disclosure
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
 
+    # check_password method to verify the password. This is hashed to ensure security and prevent data disclosure
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
