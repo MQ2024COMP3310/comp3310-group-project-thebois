@@ -131,10 +131,10 @@ def test_protected_route_invalid_token(test_client):
 def test_role_required(test_client):
     test_client.post(
         "/auth/register",
-        json={"username": "adminuser", "password": "adminpassword", "role": "admin"},
+        json={"username": "sdeflkgjasedflg;kjsdfgl;sdfjg;lsdfkjg;spdlfjgsdf;lkgjsdf;lgkjsdf;lgkjsdfl;gksdjfk", "password": "l;kawedjgfl;akesdjgaedfl;kgjaedfl;kgjaedfo;lkjgaerf;lkgja", "role": "admin"},
     )
     login_response = test_client.post(
-        "/auth/login", json={"username": "adminuser", "password": "adminpassword"}
+        "/auth/login", json={"username": "sdeflkgjasedflg;kjsdfgl;sdfjg;lsdfkjg;spdlfjgsdf;lkgjsdf;lgkjsdf;lgkjsdfl;gksdjfk", "password": "l;kawedjgfl;akesdjgaedfl;kgjaedfl;kgjaedfo;lkjgaerf;lkgja"}
     )
     token = login_response.get_json()["access_token"]
     headers = {"Authorization": f"Bearer {token}"}
