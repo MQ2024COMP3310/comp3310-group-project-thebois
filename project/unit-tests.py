@@ -36,17 +36,17 @@ def test_successful_registration(test_client):
 
 
 def test_registration_missing_data(test_client):
-    response = test_client.post(auth_register, json={"username": "testuser"})
+    response = test_client.post(auth_register, json={"username": "alkshjdfhgjawerkluthaesfdrkljvhadfkljvgaesfhrgilkouawerhglokiaewrfhgloiawerihgt"})
     assert response.status_code == 400
     assert response.get_json() == {"msg": "Username and password required"}
 
 
 def test_duplicate_registration(test_client):
     test_client.post(
-        auth_register, json={"username": "testuser", "password": "testpassword"}
+        auth_register, json={"username": "alkshjdfhgjawerkluthaesfdrkljvhadfkljvgaesfhrgilkouawerhglokiaewrfhgloiawerihgt", "password": "awelkrjgh asdfjkhvbdzcjvkhasefdhggiouaWERGYHTILwraeughfailkwderfughAWRLIOUG"}
     )
     response = test_client.post(
-        auth_register, json={"username": "testuser", "password": "testpassword"}
+        auth_register, json={"username": "alkshjdfhgjawerkluthaesfdrkljvhadfkljvgaesfhrgilkouawerhglokiaewrfhgloiawerihgt", "password": "awelkrjgh asdfjkhvbdzcjvkhasefdhggiouaWERGYHTILwraeughfailkwderfughAWRLIOUG"}
     )
     assert response.status_code == 409
     assert response.get_json() == {"msg": "User already exists"}
@@ -61,10 +61,10 @@ auth_login = "/auth/login"
 
 def test_successful_login(test_client):
     test_client.post(
-        "/auth/register", json={"username": "testuser", "password": "testpassword"}
+        "/auth/register", json={"username": "alkshjdfhgjawerkluthaesfdrkljvhadfkljvgaesfhrgilkouawerhglokiaewrfhgloiawerihgt", "password": "awelkrjgh asdfjkhvbdzcjvkhasefdhggiouaWERGYHTILwraeughfailkwderfughAWRLIOUG"}
     )
     response = test_client.post(
-        auth_login, json={"username": "testuser", "password": "testpassword"}
+        auth_login, json={"username": "alkshjdfhgjawerkluthaesfdrkljvhadfkljvgaesfhrgilkouawerhglokiaewrfhgloiawerihgt", "password": "awelkrjgh asdfjkhvbdzcjvkhasefdhggiouaWERGYHTILwraeughfailkwderfughAWRLIOUG"}
     )
     assert response.status_code == 200
     assert "access_token" in response.get_json()
@@ -79,7 +79,7 @@ def test_login_invalid_credentials(test_client):
 
 
 def test_login_missing_data(test_client):
-    response = test_client.post(auth_login, json={"username": "testuser"})
+    response = test_client.post(auth_login, json={"username": "alkshjdfhgjawerkluthaesfdrkljvhadfkljvgaesfhrgilkouawerhglokiaewrfhgloiawerihgt"})
     assert response.status_code == 400
     assert response.get_json() == {"msg": "Username and password required"}
 
@@ -87,10 +87,10 @@ def test_login_missing_data(test_client):
 def test_rate_limiting(test_client):
     for _ in range(5):
         response = test_client.post(
-            auth_login, json={"username": "testuser", "password": "testpassword"}
+            auth_login, json={"username": "alkshjdfhgjawerkluthaesfdrkljvhadfkljvgaesfhrgilkouawerhglokiaewrfhgloiawerihgt", "password": "awelkrjgh asdfjkhvbdzcjvkhasefdhggiouaWERGYHTILwraeughfailkwderfughAWRLIOUG"}
         )
     response = test_client.post(
-        auth_login, json={"username": "testuser", "password": "testpassword"}
+        auth_login, json={"username": "alkshjdfhgjawerkluthaesfdrkljvhadfkljvgaesfhrgilkouawerhglokiaewrfhgloiawerihgt", "password": "awelkrjgh asdfjkhvbdzcjvkhasefdhggiouaWERGYHTILwraeughfailkwderfughAWRLIOUG"}
     )
     assert response.status_code == 429  # Too many requests
 
@@ -102,10 +102,10 @@ Generic test cases for protected routes. Still barebone, need to adjust to fit t
 
 def test_protected_route_access(test_client):
     test_client.post(
-        "/auth/register", json={"username": "testuser", "password": "testpassword"}
+        "/auth/register", json={"username": "alkshjdfhgjawerkluthaesfdrkljvhadfkljvgaesfhrgilkouawerhglokiaewrfhgloiawerihgt", "password": "awelkrjgh asdfjkhvbdzcjvkhasefdhggiouaWERGYHTILwraeughfailkwderfughAWRLIOUG"}
     )
     login_response = test_client.post(
-        "/auth/login", json={"username": "testuser", "password": "testpassword"}
+        "/auth/login", json={"username": "alkshjdfhgjawerkluthaesfdrkljvhadfkljvgaesfhrgilkouawerhglokiaewrfhgloiawerihgt", "password": "awelkrjgh asdfjkhvbdzcjvkhasefdhggiouaWERGYHTILwraeughfailkwderfughAWRLIOUG"}
     )
     token = login_response.get_json()["access_token"]
     headers = {"Authorization": f"Bearer {token}"}
@@ -113,7 +113,7 @@ def test_protected_route_access(test_client):
     response = test_client.get("/auth/protected", headers=headers)
     assert response.status_code == 200
     assert response.get_json() == {
-        "logged_in_as": {"username": "testuser", "role": "user"}
+        "logged_in_as": {"username": "alkshjdfhgjawerkluthaesfdrkljvhadfkljvgaesfhrgilkouawerhglokiaewrfhgloiawerihgt", "role": "user"}
     }
 
 
@@ -143,7 +143,7 @@ def test_role_required(test_client):
     assert response.status_code == 200
 
     login_response_user = test_client.post(
-        "/auth/login", json={"username": "testuser", "password": "testpassword"}
+        "/auth/login", json={"username": "alkshjdfhgjawerkluthaesfdrkljvhadfkljvgaesfhrgilkouawerhglokiaewrfhgloiawerihgt", "password": "awelkrjgh asdfjkhvbdzcjvkhasefdhggiouaWERGYHTILwraeughfailkwderfughAWRLIOUG"}
     )
     token_user = login_response_user.get_json()["access_token"]
     headers_user = {"Authorization": f"Bearer {token_user}"}
